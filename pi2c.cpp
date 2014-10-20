@@ -1,8 +1,15 @@
 #include "pi2c.h"
 
-pi2c::pi2c(int address){
-	//filename - need to autodetect which i2c bus to use.
-	char filename[] = "/dev/i2c-0";
+pi2c::pi2c(int address, bool rev0){
+	char filename[11] = "/dev/i2c-";
+	if (rev0 == true){
+		filename[9] = '0';
+	}
+	else {
+		filename[9] = '1';
+	}
+	filename[10] = 0; //Add the null character onto the end of the array to make it a string
+	
 	i2cHandle = open(filename, O_RDWR); //Open the i2c file descriptor in read/write mode
 	if (i2cHandle < 0) {
 		//return 1;
@@ -13,6 +20,7 @@ pi2c::pi2c(int address){
 	}
 }
 
+
 int pi2c::i2cRead(char *data){
 	int length = sizeof(data);
 	int er = read(i2cHandle,data,length); //Need to work out how many bytes to read - possibly one at a time and add them to the full array.
@@ -22,4 +30,26 @@ int pi2c::i2cWrite(char *data){
 	int length = sizeof(data);
 	int er = write(i2cHandle,data,length);
 	return er;
+}
+
+int pi2c::i2cReadArduinoInt(){
+	char tmp[2]; //We know an Arduino Int is 2 Bytes.
+	int retval=-1;
+	
+	if (i2cRead(tmp) > 0){
+		retval = tmp[1] << 8 | tmp[0];
+	}
+	return retval;
+}
+
+int pi2c::i2cWriteArduinoInt(int input){
+	char tmp[2]; //We know an Arduino Int is 2 Bytes.
+	int retval=0;
+	
+	tmp[0] = input; //get lowest 8 bits into the first part of the array;
+	tmp[1] = input >> 8; //get the highest 8 bits into the second part of the array;
+	if (i2cRead(tmp) > 0){
+		retval = tmp[1] << 8 | tmp[0];
+	}
+	return retval;
 }

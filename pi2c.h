@@ -7,7 +7,9 @@
 class pi2c {
 		int i2cHandle;
 	public:
-		pi2c(int);
+		pi2c(int address, bool rev0 = false);
 		int i2cRead(char*);
 		int i2cWrite(char*);
+		int i2cReadArduinoInt();
+		int i2cWriteArduinoInt(int);
 };
