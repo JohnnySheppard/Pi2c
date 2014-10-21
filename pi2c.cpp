@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+// License:  This  program  is  free software; you can redistribute it and/or //
+// modify  it  under the terms of the GNU General Public License as published //
+// by  the  Free Software Foundation; either version 3 of the License, or (at //
+// your  option)  any  later version. This program is distributed in the hope //
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied //
+// warranty  of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the //
+// GNU General Public License for more details.                               //
+////////////////////////////////////////////////////////////////////////////////
+// pi2c.cpp:
+//////////////////////////////////////////////////////////////////////////////// 
 #include "pi2c.h"
 
 pi2c::pi2c(int address, bool rev0){
@@ -48,8 +59,6 @@ int pi2c::i2cWriteArduinoInt(int input){
 	
 	tmp[0] = input; //get lowest 8 bits into the first part of the array;
 	tmp[1] = input >> 8; //get the highest 8 bits into the second part of the array;
-	if (i2cRead(tmp,arr_size) > 0){
-		retval = tmp[1] << 8 | tmp[0];
-	}
+	retval = (i2cWrite(tmp,arr_size) > 0);
 	return retval;
 }
