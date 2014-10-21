@@ -21,7 +21,7 @@
 //     char receive[16]; //Create a buffer of char (single bytes) for the data//
 //                                                                            //
 //     //Print out what the Arduino is sending...                             //
-//	   arduino.i2cRead(receive,16);                                           //
+//     arduino.i2cRead(receive,16);                                           //
 //     std::cout << "Arduino Says: " << receive << std::endl;                 //
 //                                                                            //
 //     //Send an 16 bit integer                                               //
@@ -58,7 +58,7 @@
 //   while(Wire.available())                                                  //
 //   {                                                                        //
 //     char c = Wire.read();    // receive a byte as character                //
-// 	   //Create Int from the Byte Array                                       //
+//     //Create Int from the Byte Array                                       //
 //     receive_int = c << (8 * count) | receive_int;                          //
 //     count++;                                                               //
 //   }                                                                        //
