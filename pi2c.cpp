@@ -12,6 +12,7 @@
 #include "pi2c.h"
 
 pi2c::pi2c(int address, bool rev0){
+	//Set up the filename of the I2C Bus. Choose appropriate bus for Raspberry Pi Rev.
 	char filename[11] = "/dev/i2c-";
 	if (rev0 == true){
 		filename[9] = '0';
@@ -23,21 +24,20 @@ pi2c::pi2c(int address, bool rev0){
 	
 	i2cHandle = open(filename, O_RDWR); //Open the i2c file descriptor in read/write mode
 	if (i2cHandle < 0) {
-		//return 1;
 		std::cout << "Can't open I2C BUS" << std::endl; //If there's an error opening this, then display it.
 	}
 	if (ioctl(i2cHandle, I2C_SLAVE, address) < 0) { //Using ioctl set the i2c device to talk to address in the "addr" variable.
-		std::cout << "Can't set the I2C address for the slave device" << std::endl;
+		std::cout << "Can't set the I2C address for the slave device" << std::endl; //Display error setting the address for the slave.
 	}
 }
 
 
 int pi2c::i2cRead(char *data,int length){
-	int er = read(i2cHandle,data,length); 
+	int er = read(i2cHandle,data,length); //Read "length" number of bytes into the "data" buffer from the I2C bus.
 	return er;
 }
 int pi2c::i2cWrite(char *data,int length){
-	int er = write(i2cHandle,data,length);
+	int er = write(i2cHandle,data,length);//Write "length" number of bytes from the "data" buffer to the I2C bus.
 	return er;
 }
 
@@ -47,7 +47,7 @@ int pi2c::i2cReadArduinoInt(){
 	int retval=-1;
 	
 	if (i2cRead(tmp,arr_size) > 0){
-		retval = tmp[1] << 8 | tmp[0];
+		retval = tmp[1] << 8 | tmp[0]; //Using bit shifting, turn the 2 byte array into an Int.
 	}
 	return retval;
 }
