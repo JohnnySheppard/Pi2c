@@ -14,59 +14,7 @@
 // needed.                                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 // Example Usage:                                                             //
-// #include "pi2c.h"                                                          //
-//                                                                            //
-// int main(){                                                                //
-//     pi2c arduino(7); //Create a new object "arduino" using address "0x07"  //
-//     char receive[16]; //Create a buffer of char (single bytes) for the data//
-//                                                                            //
-//     //Print out what the Arduino is sending...                             //
-//     arduino.i2cRead(receive,16);                                           //
-//     std::cout << "Arduino Says: " << receive << std::endl;                 //
-//                                                                            //
-//     //Send an 16 bit integer                                               //
-//     arduino.i2cWriteArduinoInt(4356);                                      //
-//                                                                            //
-//     return 0;                                                              //
-// }                                                                          //
-////////////////////////////////////////////////////////////////////////////////
-//Example Arduino Program:                                                    //
-// #include <Wire.h>                                                          //
-//                                                                            //
-// void setup() {                                                             //
-//   Serial.begin(9600);// open the serial port at 9600 bps:                  //
-//   Wire.begin(0x07); //Set Arduino up as an I2C slave at address 0x07       //
-//   Wire.onRequest(requestEvent); //Prepare to send data                     //
-//   Wire.onReceive(receiveEvent); //Prepare to recieve data                  //
-// }                                                                          //
-//                                                                            //
-// void loop() {                                                              //
-// }                                                                          //
-//                                                                            //
-// void requestEvent()                                                        //
-// {                                                                          //
-//   unsigned char char_ar[16] = "Hi Raspberry Pi"; //Create String           //
-//   Wire.write(char_ar,16); //Write String to Pi.                            //
-// }                                                                          //
-//                                                                            //
-// void receiveEvent(int numBytes){                                           //
-//   //Set Up Vars                                                            //
-//   int receive_int=0;                                                       //
-//   int count=0;                                                             //
-//                                                                            //  
-//   //We'll recieve one byte at a time. Stop when none left                  //
-//   while(Wire.available())                                                  //
-//   {                                                                        //
-//     char c = Wire.read();    // receive a byte as character                //
-//     //Create Int from the Byte Array                                       //
-//     receive_int = c << (8 * count) | receive_int;                          //
-//     count++;                                                               //
-//   }                                                                        //
-//   //Print the Int out.                                                     //
-//   Serial.print("Received Number: ");                                       //
-//   Serial.println(receive_int);                                             //
-// }                                                                          //
-//                                                                            //
+// Please see https://bitbucket.org/JohnnySheppard/pi2c for example usage.    //
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
