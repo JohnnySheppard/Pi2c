@@ -7,7 +7,7 @@
 // warranty  of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the //
 // GNU General Public License for more details.                               //
 ////////////////////////////////////////////////////////////////////////////////
-// pi2c.h: This is the header file for the pi2c class which allows for easy   //
+// pi2c.h: This is the header file for the Pi2c class which allows for easy   //
 // communication to an Arduino from the Raspberry Pi over the I2C bus.        //
 // The default usage is for a Raspberry Pi Rev 1 - using the I2C bus          //
 // "/dev/i2c-1".  Rev0 and the "/dev/i2c-0" bus can be specfied though if     //
@@ -23,15 +23,15 @@
 #include <unistd.h>   /* For open(), */
 #include <sys/ioctl.h>
 
-class pi2c {
+class Pi2c {
 		//Var to hold the i2c communications handle, 
 		//...this will only be needed by the class itself, so it's private
-		int i2cHandle;
+		int i2cHandle_;
 	public:
 		//Function: Constructor - First parameter is the I2C address of the slave being talked to.
 		//...Second parameter is optional. Set true if using a Rev0 Raspberry Pi.
 		//...Returns: Nothing.
-		pi2c(int address, bool rev0 = false);
+		Pi2c(int address, bool rev0 = false);
 		
 		//Function: i2cRead - First parameter is a pointer to a char array. This will also contain the 
 		//...values passed back from the Arduino.

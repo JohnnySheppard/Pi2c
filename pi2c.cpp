@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////// 
 #include "pi2c.h"
 
-pi2c::pi2c(int address, bool rev0){
+Pi2c::Pi2c(int address, bool rev0){
 	//Set up the filename of the I2C Bus. Choose appropriate bus for Raspberry Pi Rev.
 	char filename[11] = "/dev/i2c-";
 	if (rev0 == true){
@@ -22,26 +22,26 @@ pi2c::pi2c(int address, bool rev0){
 	}
 	filename[10] = 0; //Add the null character onto the end of the array to make it a string
 	
-	i2cHandle = open(filename, O_RDWR); //Open the i2c file descriptor in read/write mode
-	if (i2cHandle < 0) {
+	i2cHandle_ = open(filename, O_RDWR); //Open the i2c file descriptor in read/write mode
+	if (i2cHandle_ < 0) {
 		std::cout << "Can't open I2C BUS" << std::endl; //If there's an error opening this, then display it.
 	}
-	if (ioctl(i2cHandle, I2C_SLAVE, address) < 0) { //Using ioctl set the i2c device to talk to address in the "addr" variable.
+	if (ioctl(i2cHandle_, I2C_SLAVE, address) < 0) { //Using ioctl set the i2c device to talk to address in the "addr" variable.
 		std::cout << "Can't set the I2C address for the slave device" << std::endl; //Display error setting the address for the slave.
 	}
 }
 
 
-int pi2c::i2cRead(char *data,int length){
-	int er = read(i2cHandle,data,length); //Read "length" number of bytes into the "data" buffer from the I2C bus.
+int Pi2c::i2cRead(char *data,int length){
+	int er = read(i2cHandle_,data,length); //Read "length" number of bytes into the "data" buffer from the I2C bus.
 	return er;
 }
-int pi2c::i2cWrite(char *data,int length){
-	int er = write(i2cHandle,data,length);//Write "length" number of bytes from the "data" buffer to the I2C bus.
+int Pi2c::i2cWrite(char *data,int length){
+	int er = write(i2cHandle_,data,length);//Write "length" number of bytes from the "data" buffer to the I2C bus.
 	return er;
 }
 
-int pi2c::i2cReadArduinoInt(){
+int Pi2c::i2cReadArduinoInt(){
 	const int arr_size = 2;
 	char tmp[arr_size]; //We know an Arduino Int is 2 Bytes.
 	int retval=-1;
@@ -52,7 +52,7 @@ int pi2c::i2cReadArduinoInt(){
 	return retval;
 }
 
-int pi2c::i2cWriteArduinoInt(int input){
+int Pi2c::i2cWriteArduinoInt(int input){
 	const int arr_size = 2;
 	char tmp[arr_size]; //We know an Arduino Int is 2 Bytes.
 	int retval=0;
