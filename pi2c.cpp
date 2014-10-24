@@ -31,6 +31,11 @@ Pi2c::Pi2c(int address, bool rev0){
 	}
 }
 
+Pi2c::~Pi2c(){
+	if (i2cHandle_){ //If the I2C File handle is still open...
+		close(i2cHandle_); //...Close it.
+	}
+}
 
 int Pi2c::i2cRead(char *data,int length){
 	int er = read(i2cHandle_,data,length); //Read "length" number of bytes into the "data" buffer from the I2C bus.

@@ -33,6 +33,10 @@ class Pi2c {
 		//...Returns: Nothing.
 		Pi2c(int address, bool rev0 = false);
 		
+		//Function: Destructor - Closes the I2C File handle.
+		//...Returns: Nothing.
+		~Pi2c();
+		
 		//Function: i2cRead - First parameter is a pointer to a char array. This will also contain the 
 		//...values passed back from the Arduino.
 		//...Second parameter is the length of the array.
