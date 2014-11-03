@@ -8,8 +8,7 @@ Pi2c is a C++ is a class which allows for easy communication to an Arduino from 
 
 Pi2c is already compiled for Raspbian running on the Raspberry Pi. If you want to compile it for another system, you just need to run:
 
-```
-#!console
+```console
 
 g++ -c pi2c.cpp
 ```
@@ -18,8 +17,7 @@ You may find you need to install **i2c-tools** in order for it to compile and it
 ## Using Pi2c ##
 
 In order to use this on a Raspberry Pi running Raspbian, you just need to copy **pi2c.h** and **pi2c.o** into your project and then include the header in your program. You then need to add the object to your compile command. eg.
-```
-#!console
+```console
 
 g++ pi2c.o test.cpp -o test
 ```
@@ -27,8 +25,8 @@ g++ pi2c.o test.cpp -o test
 ###Example Usage###
 
 Example C++ file:
-```
-#!c++
+```c++
+
 
 #include "pi2c.h"
 
@@ -50,8 +48,7 @@ int main(){
 
 Example Arduino file:
 
-```
-#!c++
+```c++
 
 #include <Wire.h>
 
